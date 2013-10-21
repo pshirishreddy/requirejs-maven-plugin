@@ -81,6 +81,13 @@ public class OptimizeMojo extends AbstractMojo {
     private boolean skip;
 
     /**
+     * Defines which javascript engine to use. Possible values: rhino or nodejs.
+     *
+     * @parameter expression="${requirejs.optimize.runner}" default-value=nodejs
+     */
+    private String runner = "nodejs";
+
+    /**
      * Defines the location of the NodeJS executable to use.
      *
      * @parameter
@@ -106,7 +113,8 @@ public class OptimizeMojo extends AbstractMojo {
         }
 
         Runner runner;
-        String nodeCommand = getNodeJsPath();
+        String nodeCommand = getNodeCommand();
+        
         if (nodeCommand != null) {
             getLog().info("Running with Node @ " + nodeCommand);
             runner = new NodeJsRunner(nodeCommand);
@@ -114,7 +122,6 @@ public class OptimizeMojo extends AbstractMojo {
             getLog().info("Node not detected. Falling back to rhino");
             runner = new RhinoRunner();
         }
-
 
         try {
             Optimizer builder = new Optimizer();
@@ -143,8 +150,20 @@ public class OptimizeMojo extends AbstractMojo {
             throw new MojoExecutionException("r.js exited with an error.");
         }
     }
+    /**
+     * Returns the node command if node is available and it is the runner which should be used.
+     * 
+     * @return the command or <code>null</code>
+     */
+    private String getNodeCommand() {
+        if ("nodejs".equalsIgnoreCase(runner)) {
+            return getNodeJsPath();
+        }
+        
+        return null;
+    }
 
-    @SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
     public Map getPluginContext() {
         return super.getPluginContext();
     }
