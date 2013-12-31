@@ -63,8 +63,8 @@ Just add the plugin to your pom:
             <!--
             <!-- optional parameters to optimizer executable -->
              <optimizerParameters>
-                <param>optimize=uglify</param>
-                <param>baseUrl=${baseDir}</param>
+                <parameter>optimize=uglify</parameter>
+                <parameter>baseUrl=${baseDir}</parameter>
               </optimizerParameters>
             <!--
             Whether or not to process configFile with maven filters.
@@ -104,9 +104,11 @@ http://requirejs.org/docs/optimization.html#wholeproject
 ### Plugin Options
 
 **optimizerParameters**
+
 A set of parameters to add to the optimizer command line.  See the rules here
 (RequireJS optimizer basics)[http://requirejs.org/docs/optimization.html#basics]. But in a nutshell,
-anything added here will be combined with the config file, with the config file winning conflicts.
+anything added here will be combined with the config file, with the config file winning conflicts. This should allow
+you to make your build config file more generic and pass in maven project properties during executions.
 
 **nodeExecutable**
 
