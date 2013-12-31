@@ -1,4 +1,4 @@
 requirejs optimizer maven plugin
-Copyright (c) 2012 Matthew Cheely <matt.cheely@gmail.com>
+Copyright (c) 2013 Tucson Embedded Systems <charlesk@tucsonembedded.com>
 
 This software is open source. For details, see LICENSE.txt and NOTICE.txt.

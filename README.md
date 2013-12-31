@@ -139,8 +139,5 @@ It can also be set via the command line with ```-Drequirejs.optimize.skip=true``
 
 ## Thanks
 
-requirejs-maven-plugin is available on github because my previous employer, lulu.com, was great about letting me
-share the work I do for them.
-
-This project is originally based on Jacob Hansson's brew plugin at:
-https://github.com/jakewins/brew
+requirejs-maven-plugin is a fork from the great work done by [mcheely](https://github.com/mcheely/requirejs-maven-plugin).
+However, as I still needed this project, I started building on it.
