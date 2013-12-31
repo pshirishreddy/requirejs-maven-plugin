@@ -37,9 +37,9 @@ Just add the plugin to your pom:
 
     <plugins>
       <plugin>
-        <groupId>com.github.mcheely</groupId>
+        <groupId>com.github.bringking</groupId>
         <artifactId>requirejs-maven-plugin</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.2</version>
         <executions>
           <execution>
             <goals>
