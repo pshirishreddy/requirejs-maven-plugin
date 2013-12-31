@@ -1,12 +1,13 @@
 package com.github.mcheely.maven.requirejs;
 
+import org.codehaus.plexus.util.IOUtil;
+import org.mozilla.javascript.ErrorReporter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import org.codehaus.plexus.util.IOUtil;
-import org.mozilla.javascript.ErrorReporter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Optimizes js files.
@@ -25,6 +26,10 @@ public class Optimizer {
      * @throws IOException if there is a problem reading/writing optimization files
      * @throws OptimizationException if the optimizer script returns an error status
      */
+    public void optimize(File buildProfile, ErrorReporter reporter, Runner runner, String [] params) throws IOException, OptimizationException {
+        File optimizerFile = getClasspathOptimizerFile();
+        optimize(buildProfile, optimizerFile, reporter, runner, params);
+    }
     public void optimize(File buildProfile, ErrorReporter reporter, Runner runner) throws IOException, OptimizationException {
         File optimizerFile = getClasspathOptimizerFile();
         optimize(buildProfile, optimizerFile, reporter, runner);
@@ -41,15 +46,34 @@ public class Optimizer {
      * @throws IOException if there is a problem reading/writing optimization files
      * @throws OptimizationException if the optimizer script returns an error status
      */
+    public void optimize(File buildProfile, File optimizerFile, ErrorReporter reporter, Runner runner, String[] params) throws IOException, OptimizationException {
+
+        List<String> args = new ArrayList<String>();
+        args.add("-o");
+        args.add(buildProfile.getAbsolutePath());
+
+        //append user params
+        for(int i = 0;i<params.length;++i){
+            args.add(params[i]);
+        }
+        //create array
+        String[] newParams = new String[args.size()];
+        newParams = args.toArray(newParams);
+
+        ExitStatus status = runner.exec(optimizerFile, newParams, reporter);
+        if (!status.success()) {
+        	throw new OptimizationException("Optimizer returned non-zero exit status.");
+        }
+    }
     public void optimize(File buildProfile, File optimizerFile, ErrorReporter reporter, Runner runner) throws IOException, OptimizationException {
-        
+
         String[] args = new String[2];
         args[0] = "-o";
         args[1] = buildProfile.getAbsolutePath();
 
         ExitStatus status = runner.exec(optimizerFile, args, reporter);
         if (!status.success()) {
-        	throw new OptimizationException("Optimizer returned non-zero exit status.");
+            throw new OptimizationException("Optimizer returned non-zero exit status.");
         }
     }
 

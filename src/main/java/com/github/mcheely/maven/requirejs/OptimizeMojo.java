@@ -19,13 +19,12 @@ import org.mozilla.javascript.EvaluatorException;
  *
  * @goal optimize
  * @phase process-classes
- *
  */
 public class OptimizeMojo extends AbstractMojo {
 
     /**
      * @component role="org.apache.maven.shared.filtering.MavenFileFilter"
-     *            role-hint="default"
+     * role-hint="default"
      * @required
      */
     private MavenFileFilter mavenFileFilter;
@@ -89,6 +88,13 @@ public class OptimizeMojo extends AbstractMojo {
     private String nodeExecutable;
 
     /**
+     * Defines the command line parameters to pass to the optimizer
+     *
+     * @parameter
+     */
+    private String[] optimizerParameters;
+
+    /**
      * Optimize files.
      *
      * @throws MojoExecutionException if there is a problem optimizing files.
@@ -102,11 +108,11 @@ public class OptimizeMojo extends AbstractMojo {
         Runner runner;
         String nodeCommand = getNodeJsPath();
         if (nodeCommand != null) {
-          getLog().info("Running with Node @ " + nodeCommand);
-          runner = new NodeJsRunner(nodeCommand);
+            getLog().info("Running with Node @ " + nodeCommand);
+            runner = new NodeJsRunner(nodeCommand);
         } else {
-          getLog().info("Node not detected. Falling back to rhino");
-          runner = new RhinoRunner();
+            getLog().info("Node not detected. Falling back to rhino");
+            runner = new RhinoRunner();
         }
 
 
@@ -115,9 +121,19 @@ public class OptimizeMojo extends AbstractMojo {
             ErrorReporter reporter = new MojoErrorReporter(getLog(), true);
 
             if (optimizerFile != null) {
-                builder.optimize(createBuildProfile(), optimizerFile, reporter, runner);
+
+
+                if (this.optimizerParameters != null) {
+                    builder.optimize(createBuildProfile(), optimizerFile, reporter, runner, this.optimizerParameters);
+                } else builder.optimize(createBuildProfile(), optimizerFile, reporter, runner);
+
             } else {
-                builder.optimize(createBuildProfile(), reporter, runner);
+
+                if (this.optimizerParameters != null) {
+                    builder.optimize(createBuildProfile(), reporter, runner, this.optimizerParameters);
+                } else builder.optimize(createBuildProfile(), reporter, runner);
+
+
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Failed to read r.js", e);
@@ -159,10 +175,10 @@ public class OptimizeMojo extends AbstractMojo {
     }
 
     private String getNodeJsPath() {
-      if (nodeExecutable != null) {
-        return nodeExecutable;
-      } else {
-        return NodeJsRunner.detectNodeCommand();
-      }
+        if (nodeExecutable != null) {
+            return nodeExecutable;
+        } else {
+            return NodeJsRunner.detectNodeCommand();
+        }
     }
 }
