@@ -14,7 +14,7 @@ https://github.com/amdjs/amdjs-api/wiki/AMD
 
 **simple**
 
-The plugin has a very simple design. Just provide a json confg file for the
+The plugin has a very simple design. Just provide a js confg file for the
 optimization process as documented at http://requirejs.org/docs/optimization.html#wholeproject
 
 **node support**
