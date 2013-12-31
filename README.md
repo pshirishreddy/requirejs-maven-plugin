@@ -1,10 +1,3 @@
-# Maintainer Needed
-I'm no longer using this plugin in any active projects, and I don't have the time to give it the
-TLC it deserves. If you're intersted in taking it over, fork it, let me know, and I'll put a
-prominent link here to your version. I'm also happy to help with any questions about getting your
-artifacts deployed to maven central if you haven't done it before. It's quite easy once you get 
-everything set up.
-
 # RequireJS maven plugin
 
 Builds javascript applications using the Asynchronous Module Definition (AMD)
@@ -68,6 +61,12 @@ Just add the plugin to your pom:
                 ${basedir}/src/main/scripts/r.js
             </optimizerFile>
             <!--
+            <!-- optional parameters to optimizer executable -->
+             <optimizerParameters>
+                <param>optimize=uglify</param>
+                <param>baseUrl=${baseDir}</param>
+              </optimizerParameters>
+            <!--
             Whether or not to process configFile with maven filters.
             If you use this option, some options in your configFile
             must resolve to absolute paths (see below)
@@ -103,6 +102,11 @@ see the RequireJS optimization documentation at:
 http://requirejs.org/docs/optimization.html#wholeproject
 
 ### Plugin Options
+
+**optimizerParameters**
+A set of parameters to add to the optimizer command line.  See the rules here
+(RequireJS optimizer basics)[http://requirejs.org/docs/optimization.html#basics]. But in a nutshell,
+anything added here will be combined with the config file, with the config file winning conflicts.
 
 **nodeExecutable**
 
