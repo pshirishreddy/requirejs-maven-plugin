@@ -2,7 +2,7 @@
 
 ##Central repo note:
 This plugin is a new fork to add functionality to the great plugin by [mcheely](https://github.com/mcheely/requirejs-maven-plugin).
-I am in the process of getting this publish to the central repo, please watch for updates. I started the process on
+I am in the process of getting this published to the central repo, please watch for updates. I started the process on
 12/31/2013
 
 Builds javascript applications using the Asynchronous Module Definition (AMD)
