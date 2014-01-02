@@ -1,9 +1,9 @@
-# RequireJS maven plugin
-
 ##Central repo note:
-This plugin is a new fork to add functionality to the great plugin by [mcheely](https://github.com/mcheely/requirejs-maven-plugin).
-I am in the process of getting this publish to the central repo, please watch for updates. I started the process on
-12/31/2013
+**This plugin is a new fork to add functionality to the great plugin by [mcheely](https://github.com/mcheely/requirejs-maven-plugin).
+I am in the process of getting this published to the central repo, please watch for updates. I started the process on
+12/31/2013**
+
+# RequireJS maven plugin
 
 Builds javascript applications using the Asynchronous Module Definition (AMD)
 pattern to define classes and dependencies between them. See:
@@ -14,7 +14,7 @@ https://github.com/amdjs/amdjs-api/wiki/AMD
 
 **simple**
 
-The plugin has a very simple design. Just provide a json confg file for the
+The plugin has a very simple design. Just provide a js confg file for the
 optimization process as documented at http://requirejs.org/docs/optimization.html#wholeproject
 
 **node support**
@@ -111,7 +111,7 @@ http://requirejs.org/docs/optimization.html#wholeproject
 **optimizerParameters**
 
 A set of parameters to add to the optimizer command line.  See the rules here
-(RequireJS optimizer basics)[http://requirejs.org/docs/optimization.html#basics]. But in a nutshell,
+[RequireJS optimizer basics](http://requirejs.org/docs/optimization.html#basics) But in a nutshell,
 anything added here will be combined with the config file, with the config file winning conflicts. This should allow
 you to make your build config file more generic and pass in maven project properties during executions.
 
