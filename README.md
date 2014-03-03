@@ -60,7 +60,6 @@ Just add the plugin to your pom:
             <optimizerFile>
                 ${basedir}/src/main/scripts/r.js
             </optimizerFile>
-            <!--
             <!-- optional parameters to optimizer executable -->
              <optimizerParameters>
                 <parameter>optimize=uglify</parameter>
